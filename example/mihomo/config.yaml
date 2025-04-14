@@ -1,0 +1,109 @@
+find-process-mode: off
+secret: "test_token"
+mixed-port: 7890
+log-level: debug
+external-controller: 0.0.0.0:59092
+ipv6: false
+mode: rule
+unified-delay: false
+profile: {store-fake-ip: true, store-selected: true}
+tcp-concurrent: true
+dns:
+  enable: true
+  prefer-h3: false
+  respect-rules: false
+  ipv6: false
+  default-nameserver: [https://223.5.5.5/dns-query#h3=false&DIRECT]
+  nameserver: [https://223.5.5.5/dns-query#h3=false&DIRECT]
+tun: {enable: true, stack: gvisor, dns-hijack: [any:53], auto-route: true, auto-redirect: true, auto-detect-interface: true, strict-route: true}
+
+#################################################################################################################################################################################################################################################################################
+
+tunnels:
+  - udp,127.0.0.1:9211,hidden:21483,端口转发用
+
+
+proxies:
+  - name: 🇭🇰 香港自有服务器-hysteria2
+    type: hysteria2
+    server: 127.0.0.1
+    port: 9211   #和 tunnel 端口转发一致
+    password: hidden
+    udp: true
+    sni: test.server.com
+    skip-cert-verify: true
+
+  - name: 🇭🇰 香港自有服务器-SS-none-uot #使用ss的 udp over tcp 是由于 hysteria2 自有的 udp over stream 会出现丢包
+    type: ss
+    server: 127.0.0.1
+    port: 21383
+    cipher: none
+    password: ""
+    udp: true
+    dialer-proxy: 🇭🇰 香港自有服务器-hysteria2
+    smux:
+      enabled: true
+      protocol: smux
+      max-connections: 50
+
+  - name: 🇭🇰 香港自有服务器-hysteria2-测试用-1
+    type: hysteria2
+    server: hidden
+    port: 21483
+    password: hidden
+    udp: true
+    sni: test.server.com
+    skip-cert-verify: true
+    dialer-proxy: 🇭🇰 香港
+
+  - name: 🇭🇰 香港自有服务器-hysteria2-测试用-2
+    type: hysteria2
+    server: hidden
+    port: 21483
+    password: hidden
+    udp: true
+    sni: test.server.com
+    skip-cert-verify: true
+    dialer-proxy: 🇯🇵 日本
+
+  - {name: 🇭🇰 香港, server: hidden, port: hidden, type: trojan, password: hidden, sni: hidden, skip-cert-verify: true, udp: true}
+
+  - {name: 🇯🇵 日本, server: hidden, port: hidden, type: trojan, password: hidden, sni: hidden, skip-cert-verify: true, udp: true}
+
+
+
+
+
+
+proxy-groups:
+  - name: 端口转发用
+    type: select
+    proxies:
+      - 🇭🇰 香港
+      - 🇯🇵 日本
+
+  - name: 自动回退
+    type: fallback
+    proxies:
+      - 🇭🇰 香港自有服务器-hysteria2-测试用-1
+      - 🇭🇰 香港自有服务器-hysteria2-测试用-2
+    url: https://www.gstatic.com/generate_204
+    interval: 10
+    tolerance: 0
+    lazy: false
+    max-failed-times: 1
+    timeout: 700 #和配置文件中timeout保持一致
+
+
+
+
+#################################################################################################################################################################################################################################################################################
+
+rules:
+  - DOMAIN,cp.cloudflare.com,🇭🇰 香港自有服务器-SS-none-uot
+  - DOMAIN-SUFFIX,gstatic.com,🇭🇰 香港自有服务器-SS-none-uot
+  - DOMAIN-SUFFIX,apple.com,🇭🇰 香港自有服务器-SS-none-uot
+  - NETWORK,UDP,🇭🇰 香港自有服务器-SS-none-uot
+  - MATCH,DIRECT
+
+

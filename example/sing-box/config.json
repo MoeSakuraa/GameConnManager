@@ -1,0 +1,46 @@
+{
+    "log": {
+        "level": "debug"
+    },
+    "route": {
+        "rules": [],
+        "final": "direct-out"
+    },
+    "inbounds": [
+        {
+            "type": "shadowsocks",
+            "tag": "ss-none-in",
+            "listen": "::",
+            "listen_port": 21383,
+            "method": "none",
+            "multiplex": {
+                "enabled": true
+            }
+        },
+        {
+            "type": "hysteria2",
+            "tag": "hysteria2-in",
+            "listen": "::",
+            "listen_port": 21483,
+            "users": [
+                {
+                    "name": "hysteria2-in",
+                    "password": "hidden"
+                }
+            ],
+            "tls": {
+                "enabled": true,
+                "server_name": "test.server.com",
+                "certificate_path": "/etc/sing-box/self-signed-cert.crt",
+                "key_path": "/etc/sing-box/self-signed-cert.key"
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "direct",
+            "tag": "direct-out",
+            "domain_strategy": "ipv4_only"
+        }
+    ]
+}
