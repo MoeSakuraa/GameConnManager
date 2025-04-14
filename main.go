@@ -18,17 +18,17 @@ func main() {
 		os.Exit(1)
 	}
 
-	// 创建策略组同步器
+	// 创建节点切换器
 	swt, err := switcher.New()
 	if err != nil {
-		fmt.Printf("创建策略组同步器失败: %v\n", err)
+		fmt.Printf("创建节点切换器失败: %v\n", err)
 		os.Exit(1)
 	}
 
 	// 使用goroutine运行连接检查器
 	go chk.Run()
 
-	// 使用goroutine运行策略组同步器
+	// 使用goroutine运行节点切换器
 	go swt.Run()
 
 	fmt.Println("GameConnManager 已启动")

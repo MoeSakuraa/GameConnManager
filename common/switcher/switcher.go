@@ -26,7 +26,7 @@ func New() (*Switcher, error) {
 
 // Run 启动 Switcher，定期同步策略组
 func (s *Switcher) Run() {
-	fmt.Println("启动策略组同步器，间隔:", s.interval)
+	fmt.Println("启动节点切换器，间隔:", s.interval)
 
 	// 首次执行一次同步，无需等待
 	if err := connclose.SyncGroups(true); err != nil {
