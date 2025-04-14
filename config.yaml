@@ -11,7 +11,7 @@ checker: #测试使用的 URL 是 https://www.gstatic.com/generate_204 ，已固
   timeout: 700ms #检测超时
   interval: 50ms #检测间隔
 switcher:
-  check-rise-interval: 10s
+  check-rise-interval: 10s #每隔 10s 检查主节点是否在线，如果在线则切换到主节点
 connclose:
   listen-ip: 127.0.0.1
   listen-port: 9211
