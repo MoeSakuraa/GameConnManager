@@ -16,6 +16,6 @@ go build
 ```
 ## 使用方法
 1. mihomo 配置文件参考 `example\mihomo\config.yaml`
-2. 运行即可
+2. 运行即可，程序会读取当前目录 `config.yaml`
 ## 授权
 本项目采用 BSD 3-Clause 许可证进行授权。
