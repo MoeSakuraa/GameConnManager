@@ -2,7 +2,7 @@ find-process-mode: off
 secret: "test_token"
 mixed-port: 7890
 log-level: debug
-external-controller: 0.0.0.0:59092
+external-controller: 127.0.0.1:59092
 ipv6: false
 mode: rule
 unified-delay: false
