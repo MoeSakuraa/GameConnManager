@@ -49,7 +49,7 @@ func (c *Checker) Run() {
 		fmt.Printf("解析间隔时间 %q 失败: %v\n", config.Cfg.Checker.Interval, err)
 		return
 	}
-	fmt.Println("开始连接检查")
+	fmt.Println("开始连接检查，间隔:", interval)
 	// 无限循环，不断发起 HTTP 请求
 	for {
 		resp, err := c.client.Get(C.SpeedtestUrl)
