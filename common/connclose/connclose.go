@@ -257,8 +257,8 @@ func testGroupDelay() error {
 		url.PathEscape(config.Cfg.MihomoLatencyTestGroup),
 		queryParams.Encode())
 
-	// 发送请求
-	resp, err := doRequest("GET", path, http.StatusOK)
+	// 发送请求，同时接受 200 OK 和 504 Gateway Timeout 状态码
+	resp, err := doRequest("GET", path, http.StatusOK, http.StatusGatewayTimeout)
 	if err != nil {
 		return fmt.Errorf("测试策略组延迟失败: %v", err)
 	}
