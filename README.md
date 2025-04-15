@@ -9,14 +9,14 @@
 ## 使用场景
 有的机场（即使是超一线机场）节点提供的 UDP 会话有 BUG，会出现某一段时间代理协议显示 UDP 会话状态正常，但是数据完全没有被发送，导致游戏掉线，此插件可以避免此情况的发生，原理是通过自动 HTTP 检测以及 QUIC 流的连接迁移
 ## 前提条件
-1. 自己拥有一台落地服务器，部署 sing-box，配置文件参考 `example\sing-box\config.json`
+1. 自己拥有一台落地服务器，部署 sing-box，配置文件参考 `example/sing-box/config.json`
 ## 安装
 ```bash
 git clone https://github.com/MoeSakuraa/GameConnManager.git
 go build
 ```
 ## 使用方法
-1. mihomo 配置文件参考 `example\mihomo\config.yaml`
+1. mihomo 配置文件参考 `example/mihomo/config.yaml`
 2. 运行即可，程序会读取当前目录 `config.yaml`
 ## 授权
 本项目采用 BSD 3-Clause 许可证进行授权。
