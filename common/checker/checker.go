@@ -50,8 +50,12 @@ func (c *Checker) Run() {
 		return
 	}
 	fmt.Println("开始连接检查，间隔:", interval)
-	// 无限循环，不断发起 HTTP 请求
-	for {
+
+	// 创建定时器，每隔指定时间执行一次检查
+	ticker := time.NewTicker(interval)
+	defer ticker.Stop()
+
+	for range ticker.C {
 		resp, err := c.client.Get(C.SpeedtestUrl)
 		if err != nil {
 			fmt.Printf("请求 %s 失败: %v\n", C.SpeedtestUrl, err)
@@ -62,7 +66,5 @@ func (c *Checker) Run() {
 		} else {
 			resp.Body.Close()
 		}
-		// 按配置的间隔时间暂停
-		time.Sleep(interval)
 	}
 }
