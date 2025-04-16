@@ -79,14 +79,14 @@ proxy-groups:
   - name: 端口转发用
     type: select
     proxies:
-      - 🇭🇰 香港
-      - 🇯🇵 日本
+      - 🇭🇰 香港  #注意和下面自动回退顺序一致
+      - 🇯🇵 日本  #注意和下面自动回退顺序一致
 
   - name: 自动回退
     type: fallback
     proxies:
-      - 🇭🇰 香港自有服务器-hysteria2-测试用-1
-      - 🇭🇰 香港自有服务器-hysteria2-测试用-2
+      - 🇭🇰 香港自有服务器-hysteria2-测试用-1  #注意和上面端口转发用顺序一致
+      - 🇭🇰 香港自有服务器-hysteria2-测试用-2  #注意和上面端口转发用顺序一致
     url: https://www.gstatic.com/generate_204
     interval: 10
     tolerance: 0
