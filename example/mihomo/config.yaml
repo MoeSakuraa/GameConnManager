@@ -100,10 +100,10 @@ proxy-groups:
 #################################################################################################################################################################################################################################################################################
 
 rules:
-  - DOMAIN,cp.cloudflare.com,🇭🇰 香港自有服务器-SS-none-uot
-  - DOMAIN-SUFFIX,gstatic.com,🇭🇰 香港自有服务器-SS-none-uot
-  - DOMAIN-SUFFIX,apple.com,🇭🇰 香港自有服务器-SS-none-uot
+  - DOMAIN,cp.cloudflare.com,🇭🇰 香港自有服务器-hysteria2
+  - DOMAIN-SUFFIX,gstatic.com,🇭🇰 香港自有服务器-hysteria2
+  - DOMAIN-SUFFIX,apple.com,🇭🇰 香港自有服务器-hysteria2
   - NETWORK,UDP,🇭🇰 香港自有服务器-SS-none-uot
-  - MATCH,DIRECT
+  - MATCH,🇭🇰 香港 #普通TCP连接直接走机场线路
 
 
