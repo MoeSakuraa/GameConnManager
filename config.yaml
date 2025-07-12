@@ -15,4 +15,5 @@ switcher:
 connclose:
   listen-ip: 127.0.0.1
   listen-port: 9211
+  wait-time: 2s  # 等待关闭时间，防止切换后连接未及时建立导致无法关闭连接
   #上面指定的是端口转发的地址，以辨别应该关闭哪个连接

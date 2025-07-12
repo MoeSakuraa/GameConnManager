@@ -26,6 +26,7 @@ type Switcher struct {
 type ConnClose struct {
 	ListenIP   string `yaml:"listen-ip"`
 	ListenPort int    `yaml:"listen-port"`
+	WaitTime   string `yaml:"wait-time"`
 }
 
 // Config 定义 YAML 配置结构体

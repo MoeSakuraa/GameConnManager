@@ -166,6 +166,12 @@ func SyncGroups(closeCurrentConnection bool) error {
 		if err != nil {
 			return fmt.Errorf("更新 %s 策略组选择失败: %v", portForwardGroup, err)
 		}
+		// 1. 解析 wait-time 字符串为 time.Duration 类型
+		waitTime, err := time.ParseDuration(config.Cfg.ConnClose.WaitTime)
+		if err != nil {
+			return fmt.Errorf("解析超时 %q 失败: %v", config.Cfg.ConnClose.WaitTime, err)
+		}
+		time.Sleep(waitTime) // 等待，以确保更新生效
 		fmt.Printf("已成功更新 %s 策略组选择, 将关闭现有连接以切换到新节点\n", portForwardGroup)
 		// 关闭连接以应用新的策略组设置，传入false防止递归调用
 		if closeCurrentConnection {
